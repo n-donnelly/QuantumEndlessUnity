@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
@@ -13,14 +12,13 @@ public class PlayerController : MonoBehaviour {
 	public bool gameOver = false;
 
 	float height;
-	//float width;
 
 	void Awake()
 	{
 		body = GetComponent<Rigidbody2D> ();
 		rend = GetComponent<SpriteRenderer> ();
 		height = rend.bounds.size.y;
-		//width = rend.bounds.size.x;
+        rend.color = new Color(255f, 0f, 0f);
 	}
 		
 	// Update is called once per frame
@@ -31,16 +29,16 @@ public class PlayerController : MonoBehaviour {
 
 		float v = transform.position.y;
 
-		#if UNITY_STANDALONE || UNITY_WEBPLAYER
+#if UNITY_STANDALONE || UNITY_WEBPLAYER
 
 		v = Input.GetAxisRaw ("Vertical");
-		movement.Set (0f, v);
+        movement.Set (0f, v);
 
 		movement = movement.normalized * speed * Time.deltaTime;
 		Vector2 newPos = (Vector2)transform.position + (Vector2)movement;
 		Vector2 newnew = new Vector2(newPos.x, ((newPos.y < (height/2-5) || newPos.y > (5-height/2)) ? transform.position.y : newPos.y));
 		Debug.Log("Photon pos: " + newnew);
-		body.MovePosition (new Vector2(newPos.x, ((newPos.y < (height/2-5) || newPos.y > (5-height/2)) ? transform.position.y : newPos.y)));
+		body.MovePosition (newnew);
 
 		#elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
 
@@ -73,11 +71,8 @@ public class PlayerController : MonoBehaviour {
 		SetColor (newCol);
 	}
 
-	void Transition(Color newCol){
-
-	}
-
 	public void SetGameOver() {
 		gameOver = true;
 	}
+    
 }

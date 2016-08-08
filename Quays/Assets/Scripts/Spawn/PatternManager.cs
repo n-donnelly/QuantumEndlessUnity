@@ -9,6 +9,8 @@ public class PatternManager : MonoBehaviour {
 	float hackedInHeight = 10f;
 	float vertOffset = 0f;
 
+    public GameManager gameManager;
+
 	void Start() {
 		float currentLowest = 100f;
 		float currentHighest = -100f;
@@ -19,6 +21,7 @@ public class PatternManager : MonoBehaviour {
 
 				float objLow = lvlObj.transform.position.y - (lvlObj.GetComponent<Renderer> ().bounds.size.y / 2);
 				float objHigh = lvlObj.transform.position.y + (lvlObj.GetComponent<Renderer> ().bounds.size.y / 2);
+                lvlObj.Subscribe(this);
 
 				if (currentLowest > objLow)
 					currentLowest = objLow;
@@ -30,7 +33,7 @@ public class PatternManager : MonoBehaviour {
 		patternHeight = currentHighest - currentLowest;
 	}
 
-	public void Activate(Color[] colors) {
+	public void Activate(Color[] colors, GameManager gameManager) {
 		running = true;
 
 		vertOffset = Random.Range (0f, hackedInHeight - patternHeight);
@@ -63,4 +66,14 @@ public class PatternManager : MonoBehaviour {
 	public bool isRunning(){
 		return running;
 	}
+
+    public void updateGemCollision(GemScript gem)
+    {
+        gameManager.GemPickUp(gem.getColor());
+    }
+
+    public void updateGateCollision(GateScript gate)
+    {
+        gameManager.ResetSpeed();
+    }
 }

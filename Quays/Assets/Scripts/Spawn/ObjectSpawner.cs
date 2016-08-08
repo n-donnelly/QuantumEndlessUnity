@@ -8,6 +8,8 @@ public class ObjectSpawner : MonoBehaviour {
 	public int patternIndex = 0;
 	public int childCount;
 
+    public GameManager gameManager;
+
 	Color[] colors;
 
 	// Use this for initialization
@@ -39,7 +41,7 @@ public class ObjectSpawner : MonoBehaviour {
 					objColors[1] = colors[Random.Range(0,colors.Length)];
 					objColors[2] = colors[Random.Range(0,colors.Length)];
 
-					child.GetComponent<PatternManager>().Activate(objColors);
+					child.GetComponent<PatternManager>().Activate(objColors, gameManager);
 				} else patternIndex++;
 			} while (tryingChild && patternIndex < transform.childCount );
 		}

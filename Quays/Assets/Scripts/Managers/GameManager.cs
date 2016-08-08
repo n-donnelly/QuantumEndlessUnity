@@ -8,14 +8,13 @@ public class GameManager : MonoBehaviour {
 
 	public GameOverManager gameOverManager;
 	public PlayerController playerController;
+    public ScoreManager scoreManager;
 	public float speedUp;
-	bool playing;
-	Color playerColor;
 
 	// Use this for initialization
 	void Awake () {
 
-		gameSpeed = 4f;
+        ResetSpeed();
 		speedUp = 0.05f;
 
 	}
@@ -32,5 +31,15 @@ public class GameManager : MonoBehaviour {
 	public void ResetGame() {
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex, LoadSceneMode.Single);
 	}
+
+    public void GemPickUp(Color c)
+    {
+        scoreManager.IncreaseScore();
+    }
+
+    public void ResetSpeed()
+    {
+        gameSpeed = 4f;
+    }
 
 }

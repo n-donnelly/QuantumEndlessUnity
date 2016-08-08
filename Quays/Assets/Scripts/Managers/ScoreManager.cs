@@ -4,7 +4,8 @@ using System.Collections;
 
 public class ScoreManager : MonoBehaviour {
 
-	public static int score;
+	private int score;
+    private int multiplier;
 
 	Text scoreText;
 
@@ -12,6 +13,7 @@ public class ScoreManager : MonoBehaviour {
 	void Awake () {
 	
 		score = 0;
+        multiplier = 1;
 		scoreText = GetComponent<Text> ();
 	}
 	
@@ -20,4 +22,16 @@ public class ScoreManager : MonoBehaviour {
 
 		scoreText.text = "SCORE: " + score;
 	}
+
+    public void ResetMultiplier ()
+    {
+        multiplier = 1;
+    }
+
+    public void IncreaseScore()
+    {
+        score += multiplier;
+        if (score % 10 == 0)
+            multiplier *= 2;
+    }
 }

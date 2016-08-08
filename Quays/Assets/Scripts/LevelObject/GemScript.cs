@@ -19,15 +19,20 @@ public class GemScript : LevelObject {
 	{
 		if (other.gameObject == photon) {
 
-			if (photon.GetComponent<PlayerController> ().GetColor () == renderer.color)
-				ScoreManager.score++;
-			else {
-				Debug.Log ("Game over should be triggered");
-				photon.GetComponent<PlayerController> ().SetGameOver ();
-			}
+            if (photon.GetComponent<PlayerController>().GetColor() == renderer.color)
+                patMgr.updateGemCollision(this);
+            else
+            {
+                Debug.Log("Game over should be triggered");
+                photon.GetComponent<PlayerController>().SetGameOver();
+            }
 
 			Destroy ();
 		}
 	}
 
+    public Color getColor()
+    {
+        return renderer.color;
+    }
 }

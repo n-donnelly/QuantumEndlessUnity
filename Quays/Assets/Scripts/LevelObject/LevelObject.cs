@@ -10,7 +10,7 @@ public abstract class LevelObject : MonoBehaviour {
 	protected float height;
 	protected Vector2 startPos;
 
-	PatternManager patMgr;
+	protected PatternManager patMgr;
 
 	// Use this for initialization
 	void Awake () {
